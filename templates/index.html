@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Flask TODO List</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    </head>
+    <body>
+        <!--adding style-->
+        <div style="margin-top: auto" class="ui container">
+            <h1 class="ui center aligned header">TODO List</h1>
+
+            <form class="ui form" action = "/add" method="post">
+                <!-- adding todo title bar with add button-->
+                <div class="field">
+                    <label for="title">Todo title</label>
+                    <input type="text" name="title" placeholder="Enter Todo">
+                    <br>
+                    <button class="ui blue button" type="submit"> ADD </button>
+                </div>
+            </form>
+
+
+            <!-- find todo list in the todo db -->
+            {%for todo in todo_list%}
+            <!--adding ui css paint-->
+            <div class = "ui segment">
+                <p class="ui big header">
+
+                <!-- print the todo id abnd todo title -->
+                <p>{{todo.todo_id}} || {{todo.title}}</p>
+
+                <!-- check the task is completed or not -->
+                {% if todo.complete == False %}
+                    <span class="ui gray label">Not completed </span>
+                {% else %}
+                    <span class="ui green label">completed </span> 
+                {% endif %}
+
+                <!-- this is a link for updata and delete-->
+                <a class="ui blue button" href="/update/{{todo.todo_id}}"> Update </a>
+                <a class="ui red button"  href="/delete/{{todo.todo_id}}"> Delete </a>
+
+             </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
